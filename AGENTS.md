@@ -16,3 +16,24 @@ Inspect for generated artifacts, duplicate temp files, stale debug dumps, accide
 Never expose/commit live passwords, tokens, API keys, private keys, cookies or auth headers. Redact and use approved env/secret storage. Do not weaken security to pass tests. No direct push to main, merge or deploy unless explicitly authorized.
 
 After meaningful work update project/security status and decisions.
+
+## Simple commands: execute without asking
+
+For ordinary low-risk commands, do **not** ask the user for confirmation. Execute them and continue.
+
+Examples that should normally run without asking:
+- `git status`, `git diff`, `git log`, `git show`, `git branch`
+- file/folder listing, searching and reading inside the repository
+- grep/search/find operations
+- syntax checks and static analysis
+- lint/format checks
+- established repo-scoped unit tests
+- established safe build/compile checks that do not deploy, install system software, expose services, alter credentials, or modify production
+- reading GitHub issues/PRs/workflows/configuration
+- creating/editing ordinary project files on the approved working branch when the change is scoped and reversible
+- removal of clearly verified-unused generated/temp/cache/debug files inside the repository
+
+Do not interrupt the user merely because a command uses CMD, PowerShell, Bash, Python, Gradle, npm, Git, ADB, or another command-line tool. The decision is based on **risk**, not on the fact that it is a command-line command.
+
+Ask first only when an action is destructive, privileged, security-sensitive, irreversible/high-impact, production-facing, changes credentials/secrets, changes system/OS/network/security settings, installs/uninstalls system software, affects files outside the project, exposes a service to LAN/Internet, performs a deployment/merge to protected production state, or otherwise has a meaningful safety risk.
+
