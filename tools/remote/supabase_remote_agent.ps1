@@ -5,7 +5,7 @@ $TokenFile = Join-Path $BaseDir "agent.token"
 $LogFile = Join-Path $BaseDir "agent.log"
 $Endpoint = "https://vfkcuhxwdmnrqxdsxbhz.supabase.co/functions/v1/remote-agent"
 $DeviceId = "MIKEMIGK"
-$Version = "1.0.1"
+$Version = "1.0.2"
 $PollSeconds = 15
 $HeartbeatSeconds = 60
 
@@ -58,44 +58,58 @@ function Run-RemoteCommand($CommandRow) {
 
   $work = Join-Path $BaseDir ("job-" + $id)
   New-Item -ItemType Directory -Path $work -Force | Out-Null
-  $stdout = Join-Path $work "stdout.txt"
-  $stderr = Join-Path $work "stderr.txt"
 
   try {
     if ($shell -eq "cmd") {
       $job = Join-Path $work "command.cmd"
       [IO.File]::WriteAllText($job, "@echo off" + [Environment]::NewLine + $cmd + [Environment]::NewLine, [Text.Encoding]::Default)
-      $p = Start-Process -FilePath $env:ComSpec -ArgumentList @("/d","/c",$job) -WorkingDirectory $cwd -WindowStyle Hidden -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru
+      $fileName = $env:ComSpec
+      $arguments = '/d /c "' + $job + '"'
     } else {
       $job = Join-Path $work "command.ps1"
       [IO.File]::WriteAllText($job, $cmd, (New-Object Text.UTF8Encoding($false)))
-      $p = Start-Process -FilePath "powershell.exe" -ArgumentList @("-NoProfile","-ExecutionPolicy","Bypass","-File",$job) -WorkingDirectory $cwd -WindowStyle Hidden -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru
+      $fileName = "powershell.exe"
+      $arguments = '-NoProfile -ExecutionPolicy Bypass -File "' + $job + '"'
     }
 
-    $deadline = (Get-Date).AddSeconds($timeout)
-    while ($true) {
-      $p.Refresh()
-      if ($p.HasExited) { break }
-      if ((Get-Date) -ge $deadline) {
-        try { & taskkill.exe /PID $p.Id /T /F | Out-Null } catch {}
-        throw "Command timed out after $timeout seconds"
-      }
-      Start-Sleep -Milliseconds 200
-    }
-    try { $p.WaitForExit() } catch {}
+    $psi = New-Object System.Diagnostics.ProcessStartInfo
+    $psi.FileName = $fileName
+    $psi.Arguments = $arguments
+    $psi.WorkingDirectory = $cwd
+    $psi.UseShellExecute = $false
+    $psi.CreateNoWindow = $true
+    $psi.RedirectStandardOutput = $true
+    $psi.RedirectStandardError = $true
 
-    $out = if (Test-Path $stdout) { Get-Content $stdout -Raw -ErrorAction SilentlyContinue } else { "" }
-    $err = if (Test-Path $stderr) { Get-Content $stderr -Raw -ErrorAction SilentlyContinue } else { "" }
+    $proc = New-Object System.Diagnostics.Process
+    $proc.StartInfo = $psi
+    if (-not $proc.Start()) { throw "Failed to start command process" }
+
+    $outTask = $proc.StandardOutput.ReadToEndAsync()
+    $errTask = $proc.StandardError.ReadToEndAsync()
+
+    $finished = $proc.WaitForExit($timeout * 1000)
+    if (-not $finished) {
+      try { & taskkill.exe /PID $proc.Id /T /F | Out-Null } catch {}
+      try { $proc.Kill() } catch {}
+      throw "Command timed out after $timeout seconds"
+    }
+
+    try { $proc.WaitForExit() } catch {}
+    $out = $outTask.GetAwaiter().GetResult()
+    $err = $errTask.GetAwaiter().GetResult()
+    if ($null -eq $out) { $out = "" }
+    if ($null -eq $err) { $err = "" }
     if ($out.Length -gt 180000) { $out = $out.Substring($out.Length - 180000) }
     if ($err.Length -gt 18000) { $err = $err.Substring($err.Length - 18000) }
 
-    $status = if ($p.ExitCode -eq 0) { "completed" } else { "failed" }
+    $status = if ($proc.ExitCode -eq 0) { "completed" } else { "failed" }
     [void](Invoke-AgentPost @{
       action = "result"
       device_id = $DeviceId
       id = $id
       status = $status
-      exit_code = $p.ExitCode
+      exit_code = $proc.ExitCode
       output = $out
       error = $err
     })
