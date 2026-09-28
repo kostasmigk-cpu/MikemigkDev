@@ -5,7 +5,7 @@ $TokenFile = Join-Path $BaseDir "agent.token"
 $LogFile = Join-Path $BaseDir "agent.log"
 $Endpoint = "https://vfkcuhxwdmnrqxdsxbhz.supabase.co/functions/v1/remote-agent"
 $DeviceId = "MIKEMIGK"
-$Version = "1.0.0"
+$Version = "1.0.1"
 $PollSeconds = 15
 $HeartbeatSeconds = 60
 
@@ -72,11 +72,17 @@ function Run-RemoteCommand($CommandRow) {
       $p = Start-Process -FilePath "powershell.exe" -ArgumentList @("-NoProfile","-ExecutionPolicy","Bypass","-File",$job) -WorkingDirectory $cwd -WindowStyle Hidden -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru
     }
 
-    $finished = $p.WaitForExit($timeout * 1000)
-    if (-not $finished) {
-      try { & taskkill.exe /PID $p.Id /T /F | Out-Null } catch {}
-      throw "Command timed out after $timeout seconds"
+    $deadline = (Get-Date).AddSeconds($timeout)
+    while ($true) {
+      $p.Refresh()
+      if ($p.HasExited) { break }
+      if ((Get-Date) -ge $deadline) {
+        try { & taskkill.exe /PID $p.Id /T /F | Out-Null } catch {}
+        throw "Command timed out after $timeout seconds"
+      }
+      Start-Sleep -Milliseconds 200
     }
+    try { $p.WaitForExit() } catch {}
 
     $out = if (Test-Path $stdout) { Get-Content $stdout -Raw -ErrorAction SilentlyContinue } else { "" }
     $err = if (Test-Path $stderr) { Get-Content $stderr -Raw -ErrorAction SilentlyContinue } else { "" }
