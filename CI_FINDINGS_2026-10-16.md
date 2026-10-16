@@ -90,3 +90,7 @@ This historical run (2026-08-07) failed at the project audit before dependency i
 ## DogMapGreece — PR #15 product candidate and PR #5 iOS bootstrap
 - [PR #15 Android CI](https://github.com/kostasmigk-cpu/DogMapGreece/actions/runs/34492189265) completed successfully for the 5.5.0 candidate's Android build/test workflow. It remains an open PR, not a release.
 - PR #5 (native iOS bootstrap) is open and no PR-triggered workflow run was returned for its current head. Treat iOS build/readiness as unverified until an appropriate macOS/Xcode validation path is available.
+
+
+### StockCheckGR follow-up on the historical compile failure
+The current main branch now contains the missing status color/drawable resources reported by the 2026-08-03 run. The open Dependabot branch `dependabot/github_actions/actions/upload-artifact-7` still has an older `colors.xml` without the four status aliases. Because the PR's declared diff is only the artifact-action version change, do not assume it deletes the newer main resources; instead, rerun CI against the current PR merge base and ensure the PR is not validated solely on its stale head commit.
