@@ -116,3 +116,7 @@ Current main `INSTALL_LOCAL_AGENT.bat`:
 - registers a Task Scheduler `ONLOGON` task and starts the watchdog immediately.
 
 The open issue [asep-job-match1 #54](https://github.com/kostasmigk-cpu/asep-job-match1/issues/54) calls for local approval, expiry, one-time/replay protection, sanitized local-only status and no raw output upload. Branch search did not find `security/hardening-2026-09-24`, and no matching security PR appeared in the open-PR inventory. Therefore the documented hardening is not currently available for review through that branch/PR. Do not run the installer; do not merge or deploy anything until the security changes are restored to a reviewable branch and tests prove the local-approval and local-only logging requirements.
+
+
+### Swap #13 status nuance
+The open issue #13 describes a local agent, but current-main code searches for `local_agent_command` and `watchdog` returned no matches, and expected paths such as `laptop/agent/local_agent.py` and `INSTALL_LOCAL_AGENT.bat` were not found. Therefore the issue's described agent behavior is **not confirmed present on current main**; it may refer to removed/legacy files or a local-only copy. Keep the issue open until the local-only/runtime inventory is checked, but do not label it a confirmed current-main vulnerability based solely on the issue text.
