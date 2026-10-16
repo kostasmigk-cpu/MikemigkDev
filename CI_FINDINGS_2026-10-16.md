@@ -38,3 +38,11 @@ The Android Manual Build workflow completed successfully for its PR head: backen
 - WhoIsGR PR #5 is open and not draft, but the current PR-head lookup returned no PR-triggered workflow run. The patch adds Firestore rules and caller-number entries marked as verified using official URLs; validate each number and source before treating the entries as current verified data. The repo's own security issue #6 remains open. Do not infer deployed Firestore rules from a rules file in Git.
 
 No workflow was triggered during this review.
+
+
+## asep-job-match1 — PR #44 Android reliability candidate
+Observed current PR-head workflow lookups returned two failed runs:
+- [Build and tests #98](https://github.com/kostasmigk-cpu/asep-job-match1/actions/runs/30918907978) — failed.
+- [Build Android APK #3](https://github.com/kostasmigk-cpu/asep-job-match1/actions/runs/30918907875) — failed.
+
+The connector could return the job summaries but the underlying log blob was unavailable when requested, so the exact failure cause is **not established here**. Do not infer a fix from the failure alone. The open Dependabot PRs #50 (setup-android v4), #51 (gradle/actions v6), and #53 (setup-java v6) returned no PR-triggered workflow runs in the lookup. Validate compatibility and required checks before merging them. The separate local-agent security issue #54 remains open; branch search did not find the issue's named security branch.
