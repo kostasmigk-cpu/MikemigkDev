@@ -147,3 +147,16 @@ The proposed installer still removes `%LOCALAPPDATA%\DiloseToAgent\STOP` if pres
 
 ### DiplaMou security branch comparison
 The branch `security/integrated-guardian-hardening` exists, but GitHub compare reports it is **behind main by 13 commits and ahead by 0 commits** (no unique commits/files). It is not a usable hardening patch relative to current main. Issue #6 remains open; current manifest controls are positive, but the full runtime/notification/permission audit still needs a fresh branch based on current main and a validated CI run.
+
+
+## Security branch freshness check — 2026-10-16
+
+Compared six open hardening branches against their current `main`:
+- MyTurn: ahead 3, behind 0.
+- FindMeNow: ahead 8, behind 0.
+- AgroOrder: ahead 2, behind 0.
+- DogMapGreece: ahead 2, behind 0.
+- iCar-AndroidStudio: diverged, ahead 9 and behind 2.
+- DiloseTo: diverged, ahead 19 and behind 2.
+
+iCar and DiloseTo hardening branches must be reconciled with current main before review/merge; do not force-push or reset local work to do so. The other four branches are based on current main according to the compare endpoint, but still have no passing PR-triggered workflow evidence from the lookups in this audit.
