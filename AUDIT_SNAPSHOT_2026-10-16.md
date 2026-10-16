@@ -100,3 +100,16 @@ The initial snapshot noted the 1.0.3 vs 1.0.4 discrepancy. Further inspection co
 - Current CI artifact name references 1.0.9.
 
 Treat Gradle as the current code declaration only; actual uploaded Play version is unverified. This is a release-management blocker until status/store docs are reconciled.
+
+
+## Highest-priority confirmed findings added in the same audit session
+
+- **asep-job-match1:** current main local agent executes commands from a repository control file without local approval/replay protection and pushes status/output; installer adds ONLOGON persistence.
+- **DiloseTo:** current main local agent accepts remote control without independent local approval/replay protection and resets/pushes status; current control file is disabled, but the design remains unsafe if enabled. Draft hardening PR #23 has no observed PR-triggered run and the branch is 2 commits behind main.
+- **iCar:** current main local agent executes build/emulator/install/launch actions without expiry/local approval; PR #6 hardening branch is 2 commits behind main and has no observed PR-triggered run.
+- **MyTurn:** current Realtime Database rules allow any authenticated user to claim an unassigned business by setting ownerUid to their own UID; client-side `allowOwnerClaim` is not server enforcement. The version documentation also conflicts with current Gradle version 1.0.9 / code 10.
+- **WhoIsGR:** proposed PR #5 report-list rule does not require authentication and may expose raw report fields; the PR has no observed PR-triggered run.
+- **WashnoW:** current main manifest still has `allowBackup=true`; no matching hardening branch/PR was found.
+- **StayGuide:** billing PR #20 has dependency-audit and Android SDK setup failures and changes the Free guide limit from 3 to 1 in a way that may affect existing guides.
+
+These findings are documented with scope, evidence and next checks in [SECURITY_TRIAGE_2026-10-16.md](SECURITY_TRIAGE_2026-10-16.md) and [CI_FINDINGS_2026-10-16.md](CI_FINDINGS_2026-10-16.md). No application code, local machine, or production deployment was changed.
