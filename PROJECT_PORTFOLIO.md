@@ -111,3 +111,7 @@ This remains a GitHub-only audit. No local laptop, emulator, Play Console, produ
 
 ### StayGuide PR #20 — data-retention review
 The draft changes the Free plan limit from three guides to one and updates the guide-limit guard that removes excess entries. Existing Free users with multiple guides may be affected when the guard runs. Before merge, define an explicit grandfathering/migration policy and add tests to ensure the plan change does not cause unintended loss of existing guide content or associated files. This is separate from the observed CI failures. The PR remains draft and was not changed by this audit.
+
+
+### Cross-project risk count — 2026-10-16
+A GitHub-wide open-issue search returned 20 security-hardening issues across the project repositories. The complete current review queue is in [SECURITY_TRIAGE_2026-10-16.md](SECURITY_TRIAGE_2026-10-16.md). Do not interpret an open issue as proof that the finding is still present on main; inspect the actual branch and deployment path. Equally, an issue saying “patch staged” is not proof that a reviewable branch exists: the named security branch was not found for Swap or asep-job-match1.
