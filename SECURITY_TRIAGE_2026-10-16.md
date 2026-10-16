@@ -85,3 +85,9 @@ Current `backend/src/index.js` returns HTTP 409 with the explicit message `Email
 ## Confirmed WashnoW main-branch finding — Android backup still enabled
 
 Current `app/src/main/AndroidManifest.xml` on main declares `android:allowBackup="true"`. Open issue #4 says a patch was staged to change this, but branch search returned no security branch and no open PR was found. The current repository therefore does not show the proposed hardening. Before release, decide whether backup is required; if not, set it to false, or implement explicit Android data-extraction/backup rules that exclude owner/session tokens and private data. Add a manifest/static test so the setting cannot regress. No code change was made during this review.
+
+
+## Positive controls observed — DiplaMou and StockCheckGR
+
+- DiplaMou main manifest currently has `allowBackup=false`, cleartext traffic disabled, and explicit backup/data-extraction exclusions for shared preferences, databases, internal files and external files. Activities, the microphone foreground service, and receivers are non-exported except the launcher activity. This is positive evidence for those specific controls, but does not close issue #6's runtime permission, SOS action, notification-intent, or local-storage review.
+- StockCheckGR main manifest has `allowBackup=false`, cleartext traffic disabled and a network security config. Its URL fetch code requires HTTPS, rejects user-info/localhost/local addresses, revalidates redirects, limits redirects and response size, and handles 403/429 without bypass. DNS validation and connection are separate operations, so review redirect/DNS-rebinding edge cases in tests; the current user-initiated single-URL design is otherwise aligned with the project's documented safety boundary.
