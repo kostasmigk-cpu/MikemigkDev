@@ -107,3 +107,7 @@ New evidence that changes priorities:
 - Swap and asep-job-match1: the named `security/hardening-2026-09-24` branch could not be found in branch searches, and no matching security PR was surfaced. Treat those local-agent fixes as unavailable for review until a branch/PR is restored or identified.
 
 This remains a GitHub-only audit. No local laptop, emulator, Play Console, production Firebase/Cloudflare deployment, or customer/revenue status was verified.
+
+
+### StayGuide PR #20 — data-retention review
+The draft changes the Free plan limit from three guides to one and updates the guide-limit guard that removes excess entries. Existing Free users with multiple guides may be affected when the guard runs. Before merge, define an explicit grandfathering/migration policy and add tests to ensure the plan change does not cause unintended loss of existing guide content or associated files. This is separate from the observed CI failures. The PR remains draft and was not changed by this audit.
