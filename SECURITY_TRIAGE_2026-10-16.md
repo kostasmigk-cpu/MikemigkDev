@@ -65,3 +65,8 @@ PR #6 proposes publicly readable `publicState` and `publicResults`, plus unauthe
 ## Additional AgroOrder review — active rules path is unconfirmed
 
 The security PR #10 changes `firestore.rules.next`. In the root paths checked on 2026-10-16, a root `firebase.json` and a file named `firestore.rules` were not found, while `firestore.rules.next` exists. This does not prove the file is unused, but it means the deployment/activation path must be established before calling the change effective. Verify the exact rules file used by the release workflow and add emulator tests for the customer-field allowlist before any deployment.
+
+
+## Additional WhoIsGR PR #5 — caller-authenticity wording
+
+The PR's new hardcoded supplemental entries construct a `CallerInfo` with `status = "Επίσημος εταιρικός αριθμός"` and `confidence = 100`. In a caller-identification product, this must not be presented as proof that an incoming call genuinely originated from that organization: caller ID can be spoofed. Preserve the distinction between “this number is listed by the organization as an official contact” and “this incoming call is authentic.” Add a clear UI disclaimer and source/date provenance, and verify each exact number against the linked current official source before marking it current.
