@@ -139,3 +139,7 @@ Current main `laptop/agent/local_agent.py` fetches `origin/main` to read the com
 Current main `firebase/database.rules.json` permits any authenticated UID to write its own UID to `businesses/{businessId}/ownerUid` when that field does not yet exist. The web client checks `allowOwnerClaim` before calling the PUT, but this flag is client-side configuration and is not referenced by the database rules. Therefore, if an unclaimed business ID is known, a user can bypass the UI and attempt the same claim directly against the Firebase REST API. PR #11 narrows ownerUid reads but does not change this initial-claim write condition; PR #6's proposed rules retain it as well.
 
 Required before any multi-business/production use: remove public self-claim from the client-writable rules and use an owner provisioning/invitation mechanism enforced by trusted server code or an independently verified claim secret. Add Firebase Realtime Database emulator tests proving an arbitrary authenticated user cannot claim an unassigned business, even when the client config says owner claim is disabled.
+
+
+### DiloseTo PR #23 installer follow-up
+The proposed installer still removes `%LOCALAPPDATA%\DiloseToAgent\STOP` if present and then starts a persistent watchdog immediately. That behavior should not silently override an existing stop marker. A safer installer should preserve STOP by default and require a separate explicit “install and start” action before removing it or registering Startup persistence.
