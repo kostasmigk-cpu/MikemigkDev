@@ -132,3 +132,10 @@ PR #6 is the proposed hardening path, but its current head has no PR-triggered w
 ## Confirmed P0 — DiloseTo local agent on main still trusts remote control without local approval
 
 Current main `laptop/agent/local_agent.py` fetches `origin/main` to read the command file, accepts commands if enabled/project/agent/action match, but expiry is optional and there is no independent local approval or replay-protection check. `push_status()` fetches and runs `git reset --hard origin/main`, then commits and pushes status/results to `main`; payloads can include build output, device/emulator details and exception text. PR #23 proposes hardening this, but remains draft and its current head has no PR-triggered workflow run in the lookup. Do not run `INSTALL_LOCAL_AGENT.bat`; require review and CI for the hardening branch before any local installation.
+
+
+## Confirmed P0 — MyTurn Firebase owner-claim rule is client-gated, not server-gated
+
+Current main `firebase/database.rules.json` permits any authenticated UID to write its own UID to `businesses/{businessId}/ownerUid` when that field does not yet exist. The web client checks `allowOwnerClaim` before calling the PUT, but this flag is client-side configuration and is not referenced by the database rules. Therefore, if an unclaimed business ID is known, a user can bypass the UI and attempt the same claim directly against the Firebase REST API. PR #11 narrows ownerUid reads but does not change this initial-claim write condition; PR #6's proposed rules retain it as well.
+
+Required before any multi-business/production use: remove public self-claim from the client-writable rules and use an owner provisioning/invitation mechanism enforced by trusted server code or an independently verified claim secret. Add Firebase Realtime Database emulator tests proving an arbitrary authenticated user cannot claim an unassigned business, even when the client config says owner claim is disabled.
