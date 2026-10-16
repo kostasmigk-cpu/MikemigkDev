@@ -60,3 +60,8 @@ For DiloseTo, `security/hardening-2026-09-24` does exist and PR #23 is open/draf
 MyTurn PR #6 is open and not draft, and PR #11 is a separate open/draft security patch. Both touch `MainActivity.java`/Firebase rules or related runtime behavior, so they must be reconciled before either is merged.
 
 PR #6 proposes publicly readable `publicState` and `publicResults`, plus unauthenticated creation of `joinRequests` and `ticketActions`. The public ticket validation blocks a short list of known fields (such as name, phone, clientSecret and feedbackComment) but does not define a complete allowlist for every public ticket field. Before release, define an explicit public schema with only safe fields, test it with the Firebase Realtime Database emulator, and assess abuse/rate-limiting for unauthenticated writes. Do not infer deployed rules from the PR diff.
+
+
+## Additional AgroOrder review — active rules path is unconfirmed
+
+The security PR #10 changes `firestore.rules.next`. In the root paths checked on 2026-10-16, a root `firebase.json` and a file named `firestore.rules` were not found, while `firestore.rules.next` exists. This does not prove the file is unused, but it means the deployment/activation path must be established before calling the change effective. Verify the exact rules file used by the release workflow and add emulator tests for the customer-field allowlist before any deployment.
