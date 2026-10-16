@@ -167,3 +167,8 @@ iCar and DiloseTo hardening branches must be reconciled with current main before
 - DiloseTo's committed main control currently has `enabled: false` and empty command fields, so no action is requested by that file as inspected. The design still lacks independent local approval/replay protection if the remote control is later enabled, and its installer starts persistence.
 - iCar's committed control file currently requests `icar_status` at startup, but the same agent accepts other allowlisted build/emulator/install/launch actions without local approval.
 These are code/design findings; no agent was started or command file changed.
+
+
+## Fysiokinisi — production mutation guard is fail-open on missing/misspelled environment
+
+Current `backend/src/index.ts` uses `return env.APP_ENV !== 'production'` to decide whether protected booking mutations are allowed. The checked `backend/wrangler.jsonc` sets `APP_ENV: production`, which blocks writes in that configured deployment. However, if the variable is missing or misspelled in another deployment/environment, the guard returns true and allows mutations despite the missing real authentication. Prefer an explicit allow condition such as “only allow mock writes in a named development/test environment; deny by default otherwise,” and add tests for missing, unknown, preview and production values. The real D1 `database_id` is also still absent from the checked config, so deployment state remains unverified.
