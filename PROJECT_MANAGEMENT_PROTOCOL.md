@@ -20,6 +20,7 @@ Use this repository as the central index and management protocol for the user's 
 10. Treat destructive changes, production deployments, paid services/purchases, public disclosures, permission changes, and irreversible external actions as requiring a separate explicit confirmation, even when broad autonomy has been requested.
 11. Do not claim access to a local machine, files, app, terminal, or project conversation unless a connected tool actually provides that access. GitHub access alone does not guarantee local builds, emulator tests, deployments, or synchronization with the D: drive.
 12. Keep user-facing updates brief: project, status, what was changed, checks, and any blocker.
+13. Absolute Security Protocol: never execute CMD/PowerShell/terminal commands, scripts, builds, installs, remote desktop actions, or device operations automatically. Before any such execution, explain in simple Greek exactly what it does and wait for explicit approval. Treat Task Scheduler jobs, Startup entries, Git hooks, background watchdogs, local secret synchronization, and automatic pull/test/build as persistent side effects requiring separate opt-in approval. Never run destructive deletion/format operations, edit the Windows Registry, or weaken Firewall/Antivirus protections. Reading GitHub files and writing central management documentation does not authorize local execution.
 
 ## Central execution command convention
 When the user says "Προχώρα στο [project]", continue that named project's recorded next step.
