@@ -120,3 +120,10 @@ The open issue [asep-job-match1 #54](https://github.com/kostasmigk-cpu/asep-job-
 
 ### Swap #13 status nuance
 The open issue #13 describes a local agent, but current-main code searches for `local_agent_command` and `watchdog` returned no matches, and expected paths such as `laptop/agent/local_agent.py` and `INSTALL_LOCAL_AGENT.bat` were not found. Therefore the issue's described agent behavior is **not confirmed present on current main**; it may refer to removed/legacy files or a local-only copy. Keep the issue open until the local-only/runtime inventory is checked, but do not label it a confirmed current-main vulnerability based solely on the issue text.
+
+
+## Confirmed P0 — iCar local agent on main lacks local approval/expiry
+
+Current main `laptop/agent/local_agent.py` polls `runtime-control/local_agent_command.json`, accepts any action in its allowlist, and executes the action without expiry validation, one-time local approval, or replay protection. Its allowlist includes emulator start, APK install, app launch and smoke-test actions. It writes command output to `runtime-data/local_agent_status.json`. The current control file has a bootstrap `icar_status` command, which the agent can execute on startup. The installer pulls main and starts the agent.
+
+PR #6 is the proposed hardening path, but its current head has no PR-triggered workflow run in the lookup. Do not run `INSTALL_LOCAL_AGENT.bat` or any remote-agent flow. Require review of approval/expiry/replay enforcement, sanitized local-only status, fixed safe allowlist and tests before any installation.
