@@ -98,3 +98,7 @@ The current main branch now contains the missing status color/drawable resources
 
 ## Swap — duplicate guided-tour branches
 Open PR #16 is a draft on `feature/first-run-guided-tour`; open PR #18 is a non-draft on `feature/first-run-guided-tour-v2`. Both touch the same guided-tour UI files. PR #18 has the observed successful Android build/test run above; PR #16 is an overlapping alternative and has no PR-triggered workflow run returned by the lookup. Keep the work consolidated into one reviewed implementation; do not merge both independently.
+
+
+## Manual-only CI workflows
+Current main workflows in MyTurn and WhoIsGR use `workflow_dispatch` rather than `pull_request`, so an empty PR-triggered run lookup is expected for those repositories. Do not treat it as proof of a broken workflow; however, security PRs still need an intentionally authorized manual run and review of the resulting test/artifact evidence before merge. No workflow was dispatched during this audit.
