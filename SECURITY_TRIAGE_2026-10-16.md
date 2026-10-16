@@ -172,3 +172,8 @@ These are code/design findings; no agent was started or command file changed.
 ## Fysiokinisi — production mutation guard is fail-open on missing/misspelled environment
 
 Current `backend/src/index.ts` uses `return env.APP_ENV !== 'production'` to decide whether protected booking mutations are allowed. The checked `backend/wrangler.jsonc` sets `APP_ENV: production`, which blocks writes in that configured deployment. However, if the variable is missing or misspelled in another deployment/environment, the guard returns true and allows mutations despite the missing real authentication. Prefer an explicit allow condition such as “only allow mock writes in a named development/test environment; deny by default otherwise,” and add tests for missing, unknown, preview and production values. The real D1 `database_id` is also still absent from the checked config, so deployment state remains unverified.
+
+
+## StayGuide PR #20 — billing terms acceptance is client-flow-only in current diff
+
+The proposed client calls `acceptBillingTerms` before opening the Google Play purchase flow, but the server-side `verifyPlaySubscription` callable only requires authentication, a purchase token and an allowed product ID; it does not itself check the stored `billingTermsVersion`. If terms acceptance is a release/compliance prerequisite, enforce it server-side before granting entitlement, and add tests that a valid purchase token cannot activate Pro for a profile that has not accepted the current terms version.
