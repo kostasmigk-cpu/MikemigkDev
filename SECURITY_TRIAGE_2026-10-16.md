@@ -75,3 +75,8 @@ The PR's new hardcoded supplemental entries construct a `CallerInfo` with `statu
 ## MyTurn — rules deployment path is unverified
 
 A direct lookup of `firebase.json` at the current main branch returned NOT_FOUND. The repository contains both `FIREBASE/database.rules.json` and `firebase/database.rules.json` in the public-queue PR context, while the security PR #11 modifies only the lowercase path. Until the intended canonical file and actual deployment procedure are documented, do not assume either file is deployed to production. Add a safe, explicit rules validation/deployment workflow or document the controlled console/manual process, and keep a test that detects drift between canonical rules and any duplicate copy.
+
+
+## Additional FindMeNow review — confirmed account enumeration and data minimization items
+
+Current `backend/src/index.js` returns HTTP 409 with the explicit message `Email already registered` from `/api/auth/register`. This confirms the account-enumeration concern in issue #10. Prefer a response that does not disclose whether an email already has an account while preserving a safe account-recovery flow. The public professional listing/detail handlers also select `p.*`; review whether internal fields such as `user_id` should be excluded from public JSON responses. PR #13 only addresses CORS allowlisting and adds CORS tests, so these separate findings remain outside its current scope.
