@@ -88,3 +88,15 @@ Checked the current metadata for six security/product PRs. All six remain open a
 - [Project portfolio](PROJECT_PORTFOLIO.md) — refreshed with verified follow-up findings and explicit unverified boundaries.
 
 This follow-up remains read-only with respect to application code and deployment. Only central management documentation was updated.
+
+
+## MyTurn version mismatch — deeper verification
+
+The initial snapshot noted the 1.0.3 vs 1.0.4 discrepancy. Further inspection confirms a wider mismatch:
+- Current main `app/build.gradle`: `versionName '1.0.9'`, `versionCode 10`.
+- `PRODUCTION_STATUS.md`: MyTurn 1.0.3.
+- `BUILD_TEST_STATUS.md`: MyTurn 1.0.4.
+- `README_GOOGLE_PLAY.md`: heading says v1.2, while the body lists version 1.0.2 / versionCode 2.
+- Current CI artifact name references 1.0.9.
+
+Treat Gradle as the current code declaration only; actual uploaded Play version is unverified. This is a release-management blocker until status/store docs are reconciled.
