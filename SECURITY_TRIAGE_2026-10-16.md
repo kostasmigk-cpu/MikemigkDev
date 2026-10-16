@@ -96,3 +96,8 @@ Current `app/src/main/AndroidManifest.xml` on main declares `android:allowBackup
 ## MyTurn PR #6 — setup defaults conflict with the user's explicit-approval safety rule
 
 The draft `setup.ps1` defaults to installing missing software through winget, accepting/installing Android SDK packages, creating local `.env` and `local.properties`, replacing local Git hooks, running tests/build, and registering a recurring Task Scheduler job unless corresponding `-Skip...` switches are passed. This is a substantial local-machine side effect, not a read-only setup. Do not run it on the user's laptop. Before this PR is considered, make recurring automation and system/package installation separate, explicit opt-in steps, preserve existing hooks rather than replacing them silently, and document every local side effect in plain Greek. No local command or script was executed during this review.
+
+
+## asep-job-match1 — current setup defaults to local automation
+
+Current main `setup.ps1` installs Node dependencies, may accept/install Android SDK packages and sync local secrets, and by default installs local Git hooks plus Task Scheduler automation (unless `-SkipAutomation` or `-WebOnly` is passed). The README also says setup can start a background pull/test/build pipeline. Do not run this setup on the user's laptop under the current explicit-approval rule. A safer default is setup without persistent automation; require a separate, clearly explained opt-in command for Task Scheduler/hooks and any local-secret sync.
