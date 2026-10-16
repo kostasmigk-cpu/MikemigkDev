@@ -85,3 +85,8 @@ Recommended code change for a future approved fix: update StayGuide's workflow t
 Run: https://github.com/kostasmigk-cpu/StayGuide_Marke-/actions/runs/31163914975
 
 This historical run (2026-08-07) failed at the project audit before dependency installation. The log's concrete message was `ERROR: Functions lock mismatch: firebase-functions.` The run does not establish whether that mismatch still exists on current main. Before considering PR #9, rerun the current project audit and ensure `functions/package.json` and its lockfile are consistent; the later PR #20 also has separate dependency-audit and Android SDK setup failures.
+
+
+## DogMapGreece — PR #15 product candidate and PR #5 iOS bootstrap
+- [PR #15 Android CI](https://github.com/kostasmigk-cpu/DogMapGreece/actions/runs/34492189265) completed successfully for the 5.5.0 candidate's Android build/test workflow. It remains an open PR, not a release.
+- PR #5 (native iOS bootstrap) is open and no PR-triggered workflow run was returned for its current head. Treat iOS build/readiness as unverified until an appropriate macOS/Xcode validation path is available.
