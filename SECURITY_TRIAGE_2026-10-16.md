@@ -127,3 +127,8 @@ The open issue #13 describes a local agent, but current-main code searches for `
 Current main `laptop/agent/local_agent.py` polls `runtime-control/local_agent_command.json`, accepts any action in its allowlist, and executes the action without expiry validation, one-time local approval, or replay protection. Its allowlist includes emulator start, APK install, app launch and smoke-test actions. It writes command output to `runtime-data/local_agent_status.json`. The current control file has a bootstrap `icar_status` command, which the agent can execute on startup. The installer pulls main and starts the agent.
 
 PR #6 is the proposed hardening path, but its current head has no PR-triggered workflow run in the lookup. Do not run `INSTALL_LOCAL_AGENT.bat` or any remote-agent flow. Require review of approval/expiry/replay enforcement, sanitized local-only status, fixed safe allowlist and tests before any installation.
+
+
+## Confirmed P0 — DiloseTo local agent on main still trusts remote control without local approval
+
+Current main `laptop/agent/local_agent.py` fetches `origin/main` to read the command file, accepts commands if enabled/project/agent/action match, but expiry is optional and there is no independent local approval or replay-protection check. `push_status()` fetches and runs `git reset --hard origin/main`, then commits and pushes status/results to `main`; payloads can include build output, device/emulator details and exception text. PR #23 proposes hardening this, but remains draft and its current head has no PR-triggered workflow run in the lookup. Do not run `INSTALL_LOCAL_AGENT.bat`; require review and CI for the hardening branch before any local installation.
