@@ -1,6 +1,6 @@
 # CI Findings — 2026-10-16
 
-Read-only review of two existing GitHub Actions runs. No workflow was triggered by this review.
+Read-only review of multiple existing GitHub Actions runs and PR-head metadata. No workflow was triggered by this review.
 
 ## DogMapGreece — PR #18
 Run: https://github.com/kostasmigk-cpu/DogMapGreece/actions/runs/38214703986
