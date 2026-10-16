@@ -80,3 +80,8 @@ A direct lookup of `firebase.json` at the current main branch returned NOT_FOUND
 ## Additional FindMeNow review — confirmed account enumeration and data minimization items
 
 Current `backend/src/index.js` returns HTTP 409 with the explicit message `Email already registered` from `/api/auth/register`. This confirms the account-enumeration concern in issue #10. Prefer a response that does not disclose whether an email already has an account while preserving a safe account-recovery flow. The public professional listing/detail handlers also select `p.*`; review whether internal fields such as `user_id` should be excluded from public JSON responses. PR #13 only addresses CORS allowlisting and adds CORS tests, so these separate findings remain outside its current scope.
+
+
+## Confirmed WashnoW main-branch finding — Android backup still enabled
+
+Current `app/src/main/AndroidManifest.xml` on main declares `android:allowBackup="true"`. Open issue #4 says a patch was staged to change this, but branch search returned no security branch and no open PR was found. The current repository therefore does not show the proposed hardening. Before release, decide whether backup is required; if not, set it to false, or implement explicit Android data-extraction/backup rules that exclude owner/session tokens and private data. Add a manifest/static test so the setting cannot regress. No code change was made during this review.
