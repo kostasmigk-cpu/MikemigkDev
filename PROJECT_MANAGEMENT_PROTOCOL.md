@@ -1,7 +1,7 @@
 # Central Project Management Protocol
 
 Status: Active working agreement
-Last updated: 2026-10-13
+Last updated: 2026-10-16
 Owner: kostasmigk-cpu
 
 ## Purpose
@@ -65,3 +65,5 @@ The manager should refresh this inventory from GitHub when needed. Do not assume
 
 ## Project status log
 - 2026-10-13: Created initial central operating protocol and inventory. No source code or project branches were modified by this protocol change.
+
+- 2026-10-16: Refreshed the GitHub-visible inventory (24 project repositories plus the central manager) and recorded a read-only cross-project audit. Added linked management, CI findings, and security-triage snapshots. Observed CI evidence is scoped to the exact PR head/run; local builds, Play Console state, production deployments and revenue remain unverified. No project source code, local files, deployment, or PR merge was changed by the audit.
