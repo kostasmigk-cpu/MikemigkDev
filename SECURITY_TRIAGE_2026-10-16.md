@@ -46,3 +46,10 @@ The GitHub account currently exposes 24 project repositories plus the central ma
 **Blocker identified:** the proposed `firestore.rules` contains `allow list: if request.query.limit != null && request.query.limit <= 20;` for `/reports/{reportId}`, without requiring authentication or restricting the listed records to their owner. The report schema includes phone, company, note, status, timestamp and UID. This appears to permit unauthenticated queries for report records capped at 20 per query.
 
 **Required fix before merge:** make report reads authenticated and purpose-limited, and preferably expose only an explicitly public/moderated projection rather than raw user submissions. Add Firestore Rules Emulator tests proving unauthenticated list denial and that one user cannot read another user's private report data. Do not rely on the client UI to enforce access. The PR currently has no PR-triggered workflow run in the lookup performed on 2026-10-16; no merge/deployment is approved by this review.
+
+
+## Branch-existence verification — local-agent security issues
+
+The branch search on 2026-10-16 returned no branch matching `security` in either `kostasmigk-cpu/swap` or `kostasmigk-cpu/asep-job-match1`. Their open security issues mention a hardening patch staged on `security/hardening-2026-09-24`, but that branch name is not currently present in the branch search results, and no matching security PR appeared in the open-PR inventory. Treat those fixes as **not available for review in GitHub at this time**, not as completed work. Do not assume the patches are present on main.
+
+For DiloseTo, `security/hardening-2026-09-24` does exist and PR #23 is open/draft. It must still pass review and CI; the installer starts a persistent watchdog, so the install/start/stop behavior needs explicit review before it is run.
