@@ -119,3 +119,7 @@ A GitHub-wide open-issue search returned 20 security-hardening issues across the
 
 ### MyTurn — expanded version-source mismatch (verified 2026-10-16)
 The current main-branch `app/build.gradle` declares versionName `1.0.9` and versionCode `10`. Repository docs still label MyTurn as 1.0.3 (`PRODUCTION_STATUS.md`), 1.0.4 (`BUILD_TEST_STATUS.md`), and 1.0.2 / “v1.2” (`README_GOOGLE_PLAY.md`). The current CI artifact name says `myturn-1.0.9-firebase-locked-debug-apk`. Treat the Gradle file as the current code declaration, but do not infer the actual Play Console/uploaded version. Reconcile the docs and release evidence before any store submission.
+
+
+### Frozen scanner — version documentation and open PR boundary
+The current `extension/manifest.json` in `stake-super-bet-scanner/main` declares version `6.7.7`, while the root `README.txt` still says `v6.4`. PR #2 remains open/draft and targets `main` from `dev-intelligence`; its body says the extension is unchanged but adds a separate intelligence backend/dashboard and launcher. Under the frozen/golden-baseline rule, keep PR #2 unmerged and do not use this repository for experiments. Correct the README version only through a separately reviewed documentation change if/when authorized.
