@@ -70,3 +70,8 @@ The security PR #10 changes `firestore.rules.next`. In the root paths checked on
 ## Additional WhoIsGR PR #5 — caller-authenticity wording
 
 The PR's new hardcoded supplemental entries construct a `CallerInfo` with `status = "Επίσημος εταιρικός αριθμός"` and `confidence = 100`. In a caller-identification product, this must not be presented as proof that an incoming call genuinely originated from that organization: caller ID can be spoofed. Preserve the distinction between “this number is listed by the organization as an official contact” and “this incoming call is authentic.” Add a clear UI disclaimer and source/date provenance, and verify each exact number against the linked current official source before marking it current.
+
+
+## MyTurn — rules deployment path is unverified
+
+A direct lookup of `firebase.json` at the current main branch returned NOT_FOUND. The repository contains both `FIREBASE/database.rules.json` and `firebase/database.rules.json` in the public-queue PR context, while the security PR #11 modifies only the lowercase path. Until the intended canonical file and actual deployment procedure are documented, do not assume either file is deployed to production. Add a safe, explicit rules validation/deployment workflow or document the controlled console/manual process, and keep a test that detects drift between canonical rules and any duplicate copy.
