@@ -79,3 +79,12 @@ Checked the current metadata for six security/product PRs. All six remain open a
 | [DogMapGreece #18](https://github.com/kostasmigk-cpu/DogMapGreece/pull/18) | security/hardening-2026-10-12 | 9cd4743c687d34981447a3aa39784397a8235d7c | No status entries returned |
 
 “No status entries returned” means the connector returned an empty combined commit-status list; it is not proof that no GitHub Actions workflow ever ran. Workflow runs/check-runs still need separate inspection where available. Do not merge based on this metadata alone.
+
+
+## Supporting records added during the follow-up session
+
+- [Observed CI findings](CI_FINDINGS_2026-10-16.md) — includes DogMap success, StayGuide dependency/SDK failures and data-retention risk, StockCheck historical compile failure, Swap build result, ASEP/DiplaMou failures, and SuperBet scanner PR results.
+- [Cross-project security triage](SECURITY_TRIAGE_2026-10-16.md) — records the open security issues, the WhoIsGR public report-list blocker, MyTurn public-state schema concerns, AgroOrder rules-path uncertainty, and local-agent branch/PR status.
+- [Project portfolio](PROJECT_PORTFOLIO.md) — refreshed with verified follow-up findings and explicit unverified boundaries.
+
+This follow-up remains read-only with respect to application code and deployment. Only central management documentation was updated.
