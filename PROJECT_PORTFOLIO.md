@@ -123,3 +123,15 @@ The current main-branch `app/build.gradle` declares versionName `1.0.9` and vers
 
 ### Frozen scanner — version documentation and open PR boundary
 The current `extension/manifest.json` in `stake-super-bet-scanner/main` declares version `6.7.7`, while the root `README.txt` still says `v6.4`. PR #2 remains open/draft and targets `main` from `dev-intelligence`; its body says the extension is unchanged but adds a separate intelligence backend/dashboard and launcher. Under the frozen/golden-baseline rule, keep PR #2 unmerged and do not use this repository for experiments. Correct the README version only through a separately reviewed documentation change if/when authorized.
+
+
+### P0 blockers confirmed in current-main code — 2026-10-16
+- **asep-job-match1:** current local agent polls a repo control file, executes actions without independent local approval/replay protection, and pushes command status/output to main; installer installs an ONLOGON watchdog and can reset the dedicated clone.
+- **DiloseTo:** current local agent reads control from origin/main, lacks independent local approval and replay protection, and resets/pushes status to main. Draft hardening PR #23 has no observed PR-triggered CI run.
+- **iCar-AndroidStudio:** current local agent executes allowlisted build/emulator/install/launch actions without expiry or one-time local approval. Draft hardening PR #6 has no observed PR-triggered CI run.
+- **MyTurn:** current Realtime Database rules allow any authenticated user to claim an unassigned business by setting ownerUid to their own UID; the UI's allowOwnerClaim flag is not enforced by server rules. Separate public-state schema and rules deployment-path issues remain.
+- **WhoIsGR:** draft-to-review PR #5 proposes unauthenticated list access to raw reports; treat as a merge blocker.
+- **WashnoW:** current main Android manifest still has allowBackup=true, while the named hardening branch/PR was not found.
+- **StayGuide:** draft billing PR has CI dependency-audit and Android SDK setup failures, and its reduced free limit risks affecting existing guide records.
+
+Do not execute any local agent or installer, merge a security PR, or deploy a rules change based on this inventory. Full details and test requirements are in [Security Triage](SECURITY_TRIAGE_2026-10-16.md) and [CI Findings](CI_FINDINGS_2026-10-16.md).
