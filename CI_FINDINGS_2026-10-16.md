@@ -67,3 +67,9 @@ Trip Crew CI completed successfully for the draft PR. The PR body still requires
 ## SuperBet-iPhone-Scanner — corner feature PRs
 - [PR #30 shadow collector run](https://github.com/kostasmigk-cpu/SuperBet-iPhone-Scanner/actions/runs/36599993038) failed its matcher regression tests. The log shows failures for “accepts fresh live 1X2 Novibet quote” and “accepts fresh prematch corners for inventory but never lag” (2 failing tests). Keep PR #30 unmerged until the matcher behavior and tests are reconciled.
 - [PR #26 corner market availability run](https://github.com/kostasmigk-cpu/SuperBet-iPhone-Scanner/actions/runs/36551387260) completed successfully. This is limited evidence for that branch's test suite and does not resolve the repository's open security issue #13 or prove production readiness.
+
+
+## DiplaMou — PR #1 V9 build verification
+Run: https://github.com/kostasmigk-cpu/DiplaMou/actions/runs/30730157265
+
+The run failed at “Restore Android project” before compilation. The workflow reconstructed `project.zip` from base64 parts, but `unzip` reported a missing end-of-central-directory signature. This is a packaging/restore failure; it provides no evidence that the app source compiles or fails. The run is dated 2026-08-02, so it is historical. Fix and validate the source bundle/reconstruction process before treating PR #1 as a verified build; the separate privacy/security issue #6 remains open.
