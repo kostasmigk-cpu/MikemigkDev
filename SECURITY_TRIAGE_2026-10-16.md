@@ -143,3 +143,7 @@ Required before any multi-business/production use: remove public self-claim from
 
 ### DiloseTo PR #23 installer follow-up
 The proposed installer still removes `%LOCALAPPDATA%\DiloseToAgent\STOP` if present and then starts a persistent watchdog immediately. That behavior should not silently override an existing stop marker. A safer installer should preserve STOP by default and require a separate explicit “install and start” action before removing it or registering Startup persistence.
+
+
+### DiplaMou security branch comparison
+The branch `security/integrated-guardian-hardening` exists, but GitHub compare reports it is **behind main by 13 commits and ahead by 0 commits** (no unique commits/files). It is not a usable hardening patch relative to current main. Issue #6 remains open; current manifest controls are positive, but the full runtime/notification/permission audit still needs a fresh branch based on current main and a validated CI run.
