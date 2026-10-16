@@ -160,3 +160,10 @@ Compared six open hardening branches against their current `main`:
 - DiloseTo: diverged, ahead 19 and behind 2.
 
 iCar and DiloseTo hardening branches must be reconciled with current main before review/merge; do not force-push or reset local work to do so. The other four branches are based on current main according to the compare endpoint, but still have no passing PR-triggered workflow evidence from the lookups in this audit.
+
+
+### Current control-file state nuance
+- asep-job-match1's committed control file currently names the read-only `findnext_status` action, but the agent's allowlist includes build/emulator/install/launch/smoke-test actions and does not enforce local approval/expiry/replay.
+- DiloseTo's committed main control currently has `enabled: false` and empty command fields, so no action is requested by that file as inspected. The design still lacks independent local approval/replay protection if the remote control is later enabled, and its installer starts persistence.
+- iCar's committed control file currently requests `icar_status` at startup, but the same agent accepts other allowlisted build/emulator/install/launch actions without local approval.
+These are code/design findings; no agent was started or command file changed.
