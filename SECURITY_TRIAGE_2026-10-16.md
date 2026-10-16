@@ -39,3 +39,10 @@ Read-only GitHub issue inventory. This is a prioritized review queue, not a clai
 ## Inventory boundary
 
 The GitHub account currently exposes 24 project repositories plus the central manager repository. The inventory is based on GitHub-visible metadata and docs; local worktree state, production deployments, Play Console status and live customer/revenue status remain unverified.
+
+
+## Additional code-review finding — WhoIsGR PR #5
+
+**Blocker identified:** the proposed `firestore.rules` contains `allow list: if request.query.limit != null && request.query.limit <= 20;` for `/reports/{reportId}`, without requiring authentication or restricting the listed records to their owner. The report schema includes phone, company, note, status, timestamp and UID. This appears to permit unauthenticated queries for report records capped at 20 per query.
+
+**Required fix before merge:** make report reads authenticated and purpose-limited, and preferably expose only an explicitly public/moderated projection rather than raw user submissions. Add Firestore Rules Emulator tests proving unauthenticated list denial and that one user cannot read another user's private report data. Do not rely on the client UI to enforce access. The PR currently has no PR-triggered workflow run in the lookup performed on 2026-10-16; no merge/deployment is approved by this review.
