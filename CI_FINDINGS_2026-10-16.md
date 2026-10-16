@@ -46,3 +46,19 @@ Observed current PR-head workflow lookups returned two failed runs:
 - [Build Android APK #3](https://github.com/kostasmigk-cpu/asep-job-match1/actions/runs/30918907875) — failed.
 
 The connector could return the job summaries but the underlying log blob was unavailable when requested, so the exact failure cause is **not established here**. Do not infer a fix from the failure alone. The open Dependabot PRs #50 (setup-android v4), #51 (gradle/actions v6), and #53 (setup-java v6) returned no PR-triggered workflow runs in the lookup. Validate compatibility and required checks before merging them. The separate local-agent security issue #54 remains open; branch search did not find the issue's named security branch.
+
+
+## WhoIsGR — PR #1 Play-readiness candidate
+Run: https://github.com/kostasmigk-cpu/WhoIsGR/actions/runs/30741783592
+
+The Android CI run for PR #1 completed successfully. This is a separate branch from PR #5, the Firestore-rules/caller-data change; it does not validate PR #5. PR #1 still needs the normal review and explicit release/merge decision, and GitHub CI does not verify Play Console state.
+
+## bachelor-trip-dashboard — PR #1 Trip Crew public-product candidate
+Run: https://github.com/kostasmigk-cpu/bachelor-trip-dashboard/actions/runs/34688096178
+
+Trip Crew CI completed successfully for the draft PR. The PR body still requires a new isolated production D1 database, only the public migrations, and further release checks. The private September 11–14, 2026 bachelor-trip date window documented in the current README has passed as of this snapshot; treat the original group trip as historical and validate whether the separate public product has an active product owner/buyer before further investment.
+
+## stake-super-bet-scanner — frozen production baseline
+- [PR #2](https://github.com/kostasmigk-cpu/stake-super-bet-scanner/pull/2) remains open/draft and targets main from `dev-intelligence`.
+- [PR #5](https://github.com/kostasmigk-cpu/stake-super-bet-scanner/pull/5) remains open/draft and targets `dev-intelligence` from `android-portable`.
+- The workflow lookup returned no PR-triggered runs for PR #2's head. Keep both drafts unmerged under the frozen/golden-baseline rule. New intelligence/Android experiments belong in the isolated PreGame or separate development project, not the frozen production baseline.
