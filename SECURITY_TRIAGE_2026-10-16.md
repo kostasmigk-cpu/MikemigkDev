@@ -101,3 +101,18 @@ The draft `setup.ps1` defaults to installing missing software through winget, ac
 ## asep-job-match1 — current setup defaults to local automation
 
 Current main `setup.ps1` installs Node dependencies, may accept/install Android SDK packages and sync local secrets, and by default installs local Git hooks plus Task Scheduler automation (unless `-SkipAutomation` or `-WebOnly` is passed). The README also says setup can start a background pull/test/build pipeline. Do not run this setup on the user's laptop under the current explicit-approval rule. A safer default is setup without persistent automation; require a separate, clearly explained opt-in command for Task Scheduler/hooks and any local-secret sync.
+
+
+## Confirmed P0 — asep-job-match1 local agent remains un-hardened on main
+
+Current main `laptop/agent/local_agent.py`:
+- polls `runtime-control/local_agent_command.json` from `origin/main`;
+- dispatches allowlisted actions without an independent local approval, expiry validation, or replay protection;
+- writes status containing the command output/message tail to `runtime-data/local_agent_status.json`, then runs Git add/commit/push to `main`.
+
+Current main `INSTALL_LOCAL_AGENT.bat`:
+- clones the repository or fetches and runs `git reset --hard origin/main` on the existing dedicated clone;
+- creates a watchdog loop;
+- registers a Task Scheduler `ONLOGON` task and starts the watchdog immediately.
+
+The open issue [asep-job-match1 #54](https://github.com/kostasmigk-cpu/asep-job-match1/issues/54) calls for local approval, expiry, one-time/replay protection, sanitized local-only status and no raw output upload. Branch search did not find `security/hardening-2026-09-24`, and no matching security PR appeared in the open-PR inventory. Therefore the documented hardening is not currently available for review through that branch/PR. Do not run the installer; do not merge or deploy anything until the security changes are restored to a reviewable branch and tests prove the local-approval and local-only logging requirements.
