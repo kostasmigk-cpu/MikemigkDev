@@ -53,3 +53,10 @@ The GitHub account currently exposes 24 project repositories plus the central ma
 The branch search on 2026-10-16 returned no branch matching `security` in either `kostasmigk-cpu/swap` or `kostasmigk-cpu/asep-job-match1`. Their open security issues mention a hardening patch staged on `security/hardening-2026-09-24`, but that branch name is not currently present in the branch search results, and no matching security PR appeared in the open-PR inventory. Treat those fixes as **not available for review in GitHub at this time**, not as completed work. Do not assume the patches are present on main.
 
 For DiloseTo, `security/hardening-2026-09-24` does exist and PR #23 is open/draft. It must still pass review and CI; the installer starts a persistent watchdog, so the install/start/stop behavior needs explicit review before it is run.
+
+
+## Additional MyTurn review — PR #6 public queue rules and overlapping changes
+
+MyTurn PR #6 is open and not draft, and PR #11 is a separate open/draft security patch. Both touch `MainActivity.java`/Firebase rules or related runtime behavior, so they must be reconciled before either is merged.
+
+PR #6 proposes publicly readable `publicState` and `publicResults`, plus unauthenticated creation of `joinRequests` and `ticketActions`. The public ticket validation blocks a short list of known fields (such as name, phone, clientSecret and feedbackComment) but does not define a complete allowlist for every public ticket field. Before release, define an explicit public schema with only safe fields, test it with the Firebase Realtime Database emulator, and assess abuse/rate-limiting for unauthenticated writes. Do not infer deployed rules from the PR diff.
