@@ -115,3 +115,7 @@ The draft changes the Free plan limit from three guides to one and updates the g
 
 ### Cross-project risk count — 2026-10-16
 A GitHub-wide open-issue search returned 20 security-hardening issues across the project repositories. The complete current review queue is in [SECURITY_TRIAGE_2026-10-16.md](SECURITY_TRIAGE_2026-10-16.md). Do not interpret an open issue as proof that the finding is still present on main; inspect the actual branch and deployment path. Equally, an issue saying “patch staged” is not proof that a reviewable branch exists: the named security branch was not found for Swap or asep-job-match1.
+
+
+### MyTurn — expanded version-source mismatch (verified 2026-10-16)
+The current main-branch `app/build.gradle` declares versionName `1.0.9` and versionCode `10`. Repository docs still label MyTurn as 1.0.3 (`PRODUCTION_STATUS.md`), 1.0.4 (`BUILD_TEST_STATUS.md`), and 1.0.2 / “v1.2” (`README_GOOGLE_PLAY.md`). The current CI artifact name says `myturn-1.0.9-firebase-locked-debug-apk`. Treat the Gradle file as the current code declaration, but do not infer the actual Play Console/uploaded version. Reconcile the docs and release evidence before any store submission.
