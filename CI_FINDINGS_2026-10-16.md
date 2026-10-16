@@ -22,3 +22,19 @@ Workflow-run lookup returned no PR-triggered runs for MyTurn #11, FindMeNow #13,
 
 ## Boundaries
 No merge, deploy, secret changes, local command, or device operation was performed.
+
+## StockCheckGR — dependency PR #1
+Run: https://github.com/kostasmigk-cpu/StockCheckGR/actions/runs/30857415382
+
+The Android CI run failed during Kotlin compilation before lint/build/artifact upload. Reported unresolved resource references in MainActivity.kt include `status_green`, `bg_status_likely`, `bg_status_icon_likely`, `status_amber`, `bg_status_unavailable`, `bg_status_icon_unavailable`, `status_red`, and `text_secondary`. This run is from 2026-08-03 and is historical evidence, not proof of the current main branch state. The Dependabot artifact-action version change itself does not fix these compile errors.
+
+## Swap — guided tour PR #18
+Run: https://github.com/kostasmigk-cpu/swap/actions/runs/36965483438
+
+The Android Manual Build workflow completed successfully for its PR head: backend JavaScript syntax, unit tests, debug APK build, and APK artifact upload all reported success. The release publishing job was skipped. This is evidence for that build/test run, not a Play release or security sign-off. Swap security issue #13 remains open, so local-agent hardening is still a separate track.
+
+## DiloseTo and WhoIsGR security work
+- DiloseTo PR #23 is open/draft and its current PR-head lookup returned no PR-triggered workflow run. The diff adds command expiry, local approval/signature checks, replay protection, and tests, but the installer also creates/starts a persistent watchdog and removes an existing STOP marker. Do not run the installer or promote this PR until the full installer/update/stop behavior and the Windows-specific secret initialization are reviewed and the security test workflow has actually run.
+- WhoIsGR PR #5 is open and not draft, but the current PR-head lookup returned no PR-triggered workflow run. The patch adds Firestore rules and caller-number entries marked as verified using official URLs; validate each number and source before treating the entries as current verified data. The repo's own security issue #6 remains open. Do not infer deployed Firestore rules from a rules file in Git.
+
+No workflow was triggered during this review.
