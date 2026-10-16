@@ -63,3 +63,19 @@ This is a read-only management snapshot from GitHub repository documentation, op
 - Current Google Play Console submission/review/testing status for any app.
 - Production endpoint uptime, actual customers, revenue, or commercial demand.
 - Full security audit of all 24 projects.
+
+
+## PR metadata and CI-status check — 2026-10-16
+
+Checked the current metadata for six security/product PRs. All six remain open and in draft state, based on main, and none is merged:
+
+| PR | Head branch | Commit | Reported commit statuses |
+|---|---|---|---|
+| [MyTurn #11](https://github.com/kostasmigk-cpu/MyTurn/pull/11) | security/hardening-2026-10-02 | 382ec5c5966503cfd26a65e07a97e615e9b29d73 | No status entries returned |
+| [FindMeNow #13](https://github.com/kostasmigk-cpu/FindMeNow/pull/13) | security/hardening-2026-10-02 | 9dad4a902b0a23d6557af9bdad6105157d0c1a57 | No status entries returned |
+| [AgroOrder #10](https://github.com/kostasmigk-cpu/AgroOrder/pull/10) | security/hardening-2026-09-24 | 3eeee8445f23439a9167cd285b34c2d5e8a974c5 | No status entries returned |
+| [iCar #6](https://github.com/kostasmigk-cpu/iCar-AndroidStudio/pull/6) | security/hardening-2026-09-24 | 80e44a8126220e92b98ed15a3ae24ff129fb1567 | No status entries returned |
+| [StayGuide #20](https://github.com/kostasmigk-cpu/StayGuide_Marke-/pull/20) | feat/play-billing-freemium | c43590813ee07b1f9b9b0c86e4cf6981bf7f9f06 | No status entries returned |
+| [DogMapGreece #18](https://github.com/kostasmigk-cpu/DogMapGreece/pull/18) | security/hardening-2026-10-12 | 9cd4743c687d34981447a3aa39784397a8235d7c | No status entries returned |
+
+“No status entries returned” means the connector returned an empty combined commit-status list; it is not proof that no GitHub Actions workflow ever ran. Workflow runs/check-runs still need separate inspection where available. Do not merge based on this metadata alone.
