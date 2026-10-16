@@ -73,3 +73,9 @@ Trip Crew CI completed successfully for the draft PR. The PR body still requires
 Run: https://github.com/kostasmigk-cpu/DiplaMou/actions/runs/30730157265
 
 The run failed at “Restore Android project” before compilation. The workflow reconstructed `project.zip` from base64 parts, but `unzip` reported a missing end-of-central-directory signature. This is a packaging/restore failure; it provides no evidence that the app source compiles or fails. The run is dated 2026-08-02, so it is historical. Fix and validate the source bundle/reconstruction process before treating PR #1 as a verified build; the separate privacy/security issue #6 remains open.
+
+
+### Confirmed remediation direction for the StayGuide SDK setup failure
+The upstream `android-actions/setup-android` README documents that Google no longer serves the legacy `tools` SDK package and that requesting it causes “Failed to find package 'tools'”. It documents `android-actions/setup-android@v4` and a `packages` input to avoid the removed package. Reference: https://github.com/android-actions/setup-android#additional-packages and https://github.com/android-actions/setup-android#the-deprecated-tools-package
+
+Recommended code change for a future approved fix: update StayGuide's workflow to a supported setup-android v4 configuration (or explicitly set packages to the required SDK packages), then run the Android lint/tests. This is a recommendation only; no workflow code was changed and no run was triggered.
