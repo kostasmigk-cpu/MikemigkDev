@@ -1,6 +1,6 @@
 # Project Portfolio — Working Manager View
 
-Snapshot date: 2026-10-13
+Snapshot date: 2026-10-16 (GitHub-only follow-up audit)
 Source: repository README / explicit project status documents inspected on GitHub. This is a preliminary triage, not a claim that all builds, devices, Play Console submissions, production deployments, or live services were tested.
 
 ## Operating rules
@@ -88,3 +88,22 @@ These are candidates for further validation, not guarantees or final rankings.
 - AutoCryptoBot — crypto strategy research/simulation lab
 - PreGame-scanner- — isolated pregame scanner
 - MikemigkDev — central management protocol and portfolio
+
+
+## Verified follow-up — 2026-10-16
+
+The GitHub-only follow-up audit now has separate supporting records:
+- [Management snapshot](AUDIT_SNAPSHOT_2026-10-16.md)
+- [Observed CI findings](CI_FINDINGS_2026-10-16.md)
+- [Cross-project security triage](SECURITY_TRIAGE_2026-10-16.md)
+
+New evidence that changes priorities:
+- DogMapGreece PR #18: the observed Android CI run succeeded for build/lint/unit tests and selected artifact upload. This is narrow PR evidence only.
+- StayGuide PR #20: observed CI failed. The production dependency audit reported five advisories (including one critical), and Android setup failed before Android tests due to the unavailable `sdkmanager tools` package.
+- StockCheckGR: a historical CI run from 2026-08-03 failed Kotlin compilation on missing resource references; it does not prove current main is broken, but the dependency-action PR itself does not resolve that failure.
+- Swap guided-tour PR #18: observed Android build/test run succeeded and uploaded a debug APK artifact; release publishing was skipped. Swap's separate local-agent security issue #13 remains open.
+- WhoIsGR PR #5: code review found a proposed Firestore rule that allows listing report documents without requiring authentication, with potential exposure of phone/note/UID fields. This is a merge blocker until rules and emulator tests are corrected.
+- DiloseTo PR #23: the security branch exists, but no PR-triggered CI run was returned in the lookup. The installer starts a persistent watchdog; review its install/start/stop lifecycle before any local execution.
+- Swap and asep-job-match1: the named `security/hardening-2026-09-24` branch could not be found in branch searches, and no matching security PR was surfaced. Treat those local-agent fixes as unavailable for review until a branch/PR is restored or identified.
+
+This remains a GitHub-only audit. No local laptop, emulator, Play Console, production Firebase/Cloudflare deployment, or customer/revenue status was verified.
