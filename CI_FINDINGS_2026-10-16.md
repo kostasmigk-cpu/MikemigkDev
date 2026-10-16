@@ -94,3 +94,7 @@ This historical run (2026-08-07) failed at the project audit before dependency i
 
 ### StockCheckGR follow-up on the historical compile failure
 The current main branch now contains the missing status color/drawable resources reported by the 2026-08-03 run. The open Dependabot branch `dependabot/github_actions/actions/upload-artifact-7` still has an older `colors.xml` without the four status aliases. Because the PR's declared diff is only the artifact-action version change, do not assume it deletes the newer main resources; instead, rerun CI against the current PR merge base and ensure the PR is not validated solely on its stale head commit.
+
+
+## Swap — duplicate guided-tour branches
+Open PR #16 is a draft on `feature/first-run-guided-tour`; open PR #18 is a non-draft on `feature/first-run-guided-tour-v2`. Both touch the same guided-tour UI files. PR #18 has the observed successful Android build/test run above; PR #16 is an overlapping alternative and has no PR-triggered workflow run returned by the lookup. Keep the work consolidated into one reviewed implementation; do not merge both independently.
