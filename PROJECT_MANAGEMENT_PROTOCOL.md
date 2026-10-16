@@ -68,3 +68,4 @@ The manager should refresh this inventory from GitHub when needed. Do not assume
 - 2026-10-13: Created initial central operating protocol and inventory. No source code or project branches were modified by this protocol change.
 
 - 2026-10-16: Refreshed the GitHub-visible inventory (24 project repositories plus the central manager) and recorded a read-only cross-project audit. Added linked management, CI findings, and security-triage snapshots. Observed CI evidence is scoped to the exact PR head/run; local builds, Play Console state, production deployments and revenue remain unverified. No project source code, local files, deployment, or PR merge was changed by the audit.
+- 2026-10-16: Added the Absolute Security Protocol to the central rules: no local command/script/build/install, remote/device action, scheduled task, hook, watchdog, or background automation without a plain-Greek explanation and explicit approval.
