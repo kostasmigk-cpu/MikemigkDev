@@ -79,3 +79,9 @@ The run failed at “Restore Android project” before compilation. The workflow
 The upstream `android-actions/setup-android` README documents that Google no longer serves the legacy `tools` SDK package and that requesting it causes “Failed to find package 'tools'”. It documents `android-actions/setup-android@v4` and a `packages` input to avoid the removed package. Reference: https://github.com/android-actions/setup-android#additional-packages and https://github.com/android-actions/setup-android#the-deprecated-tools-package
 
 Recommended code change for a future approved fix: update StayGuide's workflow to a supported setup-android v4 configuration (or explicitly set packages to the required SDK packages), then run the Android lint/tests. This is a recommendation only; no workflow code was changed and no run was triggered.
+
+
+## StayGuide — Stripe dependency PR #9
+Run: https://github.com/kostasmigk-cpu/StayGuide_Marke-/actions/runs/31163914975
+
+This historical run (2026-08-07) failed at the project audit before dependency installation. The log's concrete message was `ERROR: Functions lock mismatch: firebase-functions.` The run does not establish whether that mismatch still exists on current main. Before considering PR #9, rerun the current project audit and ensure `functions/package.json` and its lockfile are consistent; the later PR #20 also has separate dependency-audit and Android SDK setup failures.
