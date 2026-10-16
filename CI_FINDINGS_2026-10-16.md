@@ -62,3 +62,8 @@ Trip Crew CI completed successfully for the draft PR. The PR body still requires
 - [PR #2](https://github.com/kostasmigk-cpu/stake-super-bet-scanner/pull/2) remains open/draft and targets main from `dev-intelligence`.
 - [PR #5](https://github.com/kostasmigk-cpu/stake-super-bet-scanner/pull/5) remains open/draft and targets `dev-intelligence` from `android-portable`.
 - The workflow lookup returned no PR-triggered runs for PR #2's head. Keep both drafts unmerged under the frozen/golden-baseline rule. New intelligence/Android experiments belong in the isolated PreGame or separate development project, not the frozen production baseline.
+
+
+## SuperBet-iPhone-Scanner — corner feature PRs
+- [PR #30 shadow collector run](https://github.com/kostasmigk-cpu/SuperBet-iPhone-Scanner/actions/runs/36599993038) failed its matcher regression tests. The log shows failures for “accepts fresh live 1X2 Novibet quote” and “accepts fresh prematch corners for inventory but never lag” (2 failing tests). Keep PR #30 unmerged until the matcher behavior and tests are reconciled.
+- [PR #26 corner market availability run](https://github.com/kostasmigk-cpu/SuperBet-iPhone-Scanner/actions/runs/36551387260) completed successfully. This is limited evidence for that branch's test suite and does not resolve the repository's open security issue #13 or prove production readiness.
