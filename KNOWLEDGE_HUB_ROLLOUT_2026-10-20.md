@@ -13,6 +13,8 @@
 
 ## Draft pull requests opened
 
+**Current total: 23 project-level documentation PRs, plus this central tracking PR.**
+
 ### Existing Knowledge Library refreshes
 
 | Project | Draft PR | Scope |
@@ -40,6 +42,11 @@
 | MyTurn | [#12](https://github.com/kostasmigk-cpu/MyTurn/pull/12) | Queue state consistency, role authorization, QR privacy, Firebase rules |
 | BuildCheck GR | [#9](https://github.com/kostasmigk-cpu/buildcheck/pull/9) | Property score provenance, uncertainty, privacy and non-professional-advice boundary |
 | VÉK Boutique | [#5](https://github.com/kostasmigk-cpu/vek-boutique/pull/5) | WooCommerce child-theme safety, customer/payment data, ZIP and dependency review |
+| StayGuide | [#24](https://github.com/kostasmigk-cpu/StayGuide_Marke-/pull/24) | Stripe webhook authority, guest/public guide boundaries, CSP and deployment truth |
+| MyGuard / DiplaMou | [#11](https://github.com/kostasmigk-cpu/DiplaMou/pull/11) | SOS safety tests, Android permissions, location/privacy and versioned safety evidence |
+| StockCheckGR | [#12](https://github.com/kostasmigk-cpu/StockCheckGR/pull/12) | SSRF-safe URL fetch review, DNS/redirect/private-IP checks, conservative availability |
+| AgroOrder | [#11](https://github.com/kostasmigk-cpu/AgroOrder/pull/11) | Producer/customer isolation, order state machine, local-first and cloud reactivation gates |
+| WashnoW | [#7](https://github.com/kostasmigk-cpu/WashnoW/pull/7) | OSM tile/source policy, location privacy and future LIVE-status authorization/freshness |
 
 ## Findings that need separate follow-up
 
@@ -71,15 +78,7 @@ The SuperBet iPhone Scanner library previously noted a mismatch between README e
 
 ## Remaining portfolio work
 
-Repositories with existing libraries still needing a current, code-backed refresh include:
-
-- [StayGuide](https://github.com/kostasmigk-cpu/StayGuide_Marke-)
-- [DiplaMou](https://github.com/kostasmigk-cpu/DiplaMou)
-- [StockCheckGR](https://github.com/kostasmigk-cpu/StockCheckGR)
-- [AgroOrder](https://github.com/kostasmigk-cpu/AgroOrder)
-- [WashnoW](https://github.com/kostasmigk-cpu/WashnoW)
-
-All accessible non-frozen repositories in this rollout are now either covered by an existing Knowledge Library or have a draft PR to create/refresh one. The next portfolio pass should review the remaining existing libraries against current code and add evidence-backed test results rather than generating more generic documentation.
+All accessible non-frozen repositories in this rollout are now either covered by an existing Knowledge Library or have a draft PR to create/refresh one. The next portfolio pass should review the draft PRs, then move from source/checklist documentation to code-backed verification: inspect the active implementation, run only explicitly approved safe tests, and record exact results rather than generating more generic documentation.
 
 The [stake-super-bet-scanner](https://github.com/kostasmigk-cpu/stake-super-bet-scanner) repository is explicitly frozen and is excluded from all edits.
 
@@ -92,7 +91,7 @@ The [stake-super-bet-scanner](https://github.com/kostasmigk-cpu/stake-super-bet-
 
 ## Next sequence
 
-1. Review the 18 draft PRs for scope and source accuracy; keep all unmerged until reviewed.
+1. Review the 23 project-level draft PRs plus one central tracking PR for scope and source accuracy; keep all unmerged until reviewed.
 2. Separately prepare a security patch for the GreyhoundLab publishing path, after checking actual branch rules and token permissions.
 3. Verify the Dunkman Telegram token revocation outside GitHub without exposing the old/new token.
 4. Continue the library refresh for the remaining projects and record concrete code/test evidence per repository.
