@@ -79,7 +79,9 @@ Repositories with existing libraries still needing a current, code-backed refres
 - [AgroOrder](https://github.com/kostasmigk-cpu/AgroOrder)
 - [WashnoW](https://github.com/kostasmigk-cpu/WashnoW)
 
-The [stake-super-bet-scanner](https://github.com/kostasmigk-cpu/stake-super-bet-scanner) repository is explicitly frozen and is excluded from all edits. Projects without an existing library and not yet covered by a draft PR also remain to be triaged individually.
+All accessible non-frozen repositories in this rollout are now either covered by an existing Knowledge Library or have a draft PR to create/refresh one. The next portfolio pass should review the remaining existing libraries against current code and add evidence-backed test results rather than generating more generic documentation.
+
+The [stake-super-bet-scanner](https://github.com/kostasmigk-cpu/stake-super-bet-scanner) repository is explicitly frozen and is excluded from all edits.
 
 ## Audit trail / limitations
 
