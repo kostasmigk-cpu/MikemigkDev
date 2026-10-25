@@ -112,3 +112,10 @@ The [stake-super-bet-scanner](https://github.com/kostasmigk-cpu/stake-super-bet-
 - Continue documentation and source review through GitHub only unless the user explicitly authorizes laptop commands/tests.
 - Do not merge or deploy any PR without explicit approval.
 - Keep `stake-super-bet-scanner` frozen and untouched.
+
+
+### Swap UX handoff captured — 2026-10-25
+
+- Updated the existing draft Knowledge Library branch for [Swap PR #27](https://github.com/kostasmigk-cpu/swap/pull/27) with a requirements note: slightly longer animation, a trial of petrol/teal in the requested section instead of purple, and efood as a high-level interaction reference.
+- The note explicitly marks implementation/device verification as unknown. It also records that the user requested direct in-app changes rather than a standalone mock-up.
+- This is documentation only. Per the user's latest instruction, laptop activity remains paused: no local commands, build, device test, APK generation, or Actions run was initiated. No PR was merged and no deployment was performed.
