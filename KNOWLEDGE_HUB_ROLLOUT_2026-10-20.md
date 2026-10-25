@@ -58,7 +58,7 @@ Current main-branch inspection found three research workflows with `contents: wr
 - `.github/workflows/dog-public-odds-probe.yml`
 - `.github/workflows/public-odds-shadow.yml`
 
-This is a potential review-bypass path, not evidence of a confirmed exploit. Verify branch protection/rulesets, token scope, trigger trust, third-party action pinning and the exact staged file set. The documentation PR records the finding; it does not remediate the workflows.
+This is a potential review-bypass path, not evidence of a confirmed exploit. The documentation PR [GreyhoundLab #6](https://github.com/kostasmigk-cpu/GreyhoundLab/pull/6) records the finding. A separate, unmerged draft remediation PR [GreyhoundLab #7](https://github.com/kostasmigk-cpu/GreyhoundLab/pull/7) now proposes `contents: read`, removal of direct commits/pushes to `main`, and 14-day Actions artifacts for generated evidence. Static read-back checks were performed on the proposed files; no workflow, build, CI job, or test was run. Branch protection/rulesets, token scope, workflow syntax and artifact contents still require review. The remediation is proposed only and is not active on `main`.
 
 ### P0 — Dunkman legacy Telegram token
 
@@ -92,6 +92,23 @@ The [stake-super-bet-scanner](https://github.com/kostasmigk-cpu/stake-super-bet-
 ## Next sequence
 
 1. Review the 23 project-level draft PRs plus one central tracking PR for scope and source accuracy; keep all unmerged until reviewed.
-2. Separately prepare a security patch for the GreyhoundLab publishing path, after checking actual branch rules and token permissions.
+2. Review the existing GreyhoundLab remediation draft PR #7; verify workflow syntax, artifact contents/retention, branch rules and token permissions before any merge.
 3. Verify the Dunkman Telegram token revocation outside GitHub without exposing the old/new token.
 4. Continue the library refresh for the remaining projects and record concrete code/test evidence per repository.
+
+
+## Progress log — 2026-10-25
+
+### GreyhoundLab workflow hardening proposal
+
+- Created draft PR [#7 — Harden public odds workflows](https://github.com/kostasmigk-cpu/GreyhoundLab/pull/7) on branch `security/restrict-workflow-write-2026-10-20`, targeting `main`.
+- The proposed change covers the three workflows listed above: permissions reduced from `contents: write` to `contents: read`; direct git commit/pull/push publishing removed; generated status/snapshot files uploaded as GitHub Actions artifacts with 14-day retention; workflow-YAML self-trigger paths removed while script-change triggers, schedules and manual triggers are retained.
+- Static read-back checks confirmed the three proposed files contain no `contents: write`, no `git push origin HEAD:main`, no workflow-YAML self-trigger in the push paths, and do contain `contents: read` plus artifact uploads.
+- No workflow runs, builds, tests or laptop commands were executed by us. The PR remains draft/open and unmerged. GitHub's connected deployment integration posted a failed deployment status for the PR head; this was not initiated by our work, and we did not run a deployment. Because this repo's default branch protection was found disabled and rulesets were not fully verifiable through the available connection, branch governance remains an explicit outstanding item.
+- This update records proposal/status only; it does not imply the fix is active on `main`.
+
+### Working boundary
+
+- Continue documentation and source review through GitHub only unless the user explicitly authorizes laptop commands/tests.
+- Do not merge or deploy any PR without explicit approval.
+- Keep `stake-super-bet-scanner` frozen and untouched.
